@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1020" />
+    <title>Sanchit Jain | Full-Stack Engineer (Node.js, React, Distributed Systems)</title>
+    <meta
+      name="description"
+      content="Full-stack engineer with 4.5+ years building scalable Node.js microservices and React interfaces for restaurant tech, fintech, aviation and e-commerce."
+    />
+    <meta
+      name="keywords"
+      content="Full-Stack Developer, Node.js Developer, React Developer, Backend Engineer, TypeScript, NestJS, Microservices, System Design, Noida, India"
+    />
+    <meta property="og:title" content="Sanchit Jain | Full-Stack Engineer" />
+    <meta property="og:description" content="I build the systems behind millions of food orders." />
+    <meta property="og:type" content="website" />
+
+    <!-- apply the saved / system theme before first paint (no flash) -->
+    <script>
+      ;(function () {
+        try {
+          var t = localStorage.getItem('sanchit.theme')
+          if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          document.documentElement.dataset.theme = t
+          if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f6f7fb')
+        } catch (e) {}
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font-family: sans-serif; padding: 2rem">Sanchit Jain, Full-Stack Engineer. Email: sanchitj439@gmail.com</p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
