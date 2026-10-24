@@ -49,9 +49,26 @@ VITE_API_BASE_URL=https://your-backend.example/v1
 
 Requests time out after 4 s and fall back to the mock; 4xx responses are shown to the user (e.g. contact form validation).
 
-## Deploy (Vercel)
+## Deploy (Vercel, free Hobby plan) & CI
 
-Import the repo in Vercel (preset **Vite**, build `npm run build`, output `dist`), set `VITE_API_BASE_URL` once the backend is live, deploy. `vercel.json` sets long-term caching for hashed assets.
+The pipeline: **push to GitHub → GitHub Actions runs lint + type-check + build → Vercel builds and deploys**.
+Every pull request gets its own preview URL, and `main` goes to production.
+
+1. Create an empty **public** repo on GitHub (no README), then:
+   ```bash
+   git remote add origin https://github.com/<you>/sanchit-portfolio.git
+   git push -u origin main
+   ```
+2. On [vercel.com](https://vercel.com) → **Add New → Project → Import** the repo. Everything is read from `vercel.json` (Vite, `npm run build`, `dist`), so just click **Deploy**.
+3. Later, when the backend exists: Vercel → Project → Settings → Environment Variables → `VITE_API_BASE_URL`, then redeploy.
+
+Staying at $0:
+- It's a static site with no serverless functions, so it uses no compute; Hobby includes 100 GB/month of bandwidth.
+- Docs- or README-only commits skip the Vercel build (`ignoreCommand`) and the CI run (`paths-ignore`).
+- Don't enable paid add-ons (Speed Insights / Web Analytics beyond the free tier, Pro trial).
+- The Hobby plan is for personal, non-commercial use, which covers a portfolio.
+
+Speed: hashed JS/CSS are cached for a year at Vercel's edge, the 3D models for a week, and every 3D scene is lazy-loaded.
 
 ## Performance & accessibility
 
