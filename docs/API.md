@@ -6,7 +6,7 @@ The frontend calls these endpoints on `VITE_API_BASE_URL` (default placeholder `
 While the URL is the placeholder, or a request fails or times out, the UI falls back to built-in mock data and shows a small **mock** badge. Any 4xx response is shown to the user as a real error.
 
 All bodies are JSON. Errors use `{ "error": { "code": "VALIDATION_ERROR", "message": "…" } }`.
-CORS must allow the site origin (e.g. `https://your-domain.vercel.app`) for `GET, POST` with `Content-Type`.
+CORS must allow the site origin (`https://sanchit-portfolio-chi.vercel.app`) for `GET, POST` with `Content-Type`.
 
 | Method | Path | Used by | Request | Response `200/201` |
 | --- | --- | --- | --- | --- |

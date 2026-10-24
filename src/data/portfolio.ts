@@ -1,19 +1,19 @@
-// All content for Sanchit Jain's portfolio.
-// Items marked "VERIFY" are assumptions – keep them only if they are true.
+// All content for Sanchit Jain's portfolio (kept in sync with the resume, Oct 2026).
+// Items still marked "VERIFY" are assumptions – keep them only if they are true.
 // Client projects: describe the problem and your work, never internal code,
 // credentials, or private numbers your employer hasn't approved.
 
 export const meta = {
-  title: 'Sanchit Jain | Full-Stack Engineer (Node.js, React, Distributed Systems)',
+  title: 'Sanchit Jain | Senior Backend Engineer (Node.js, TypeScript, Microservices)',
   description:
-    'Full-stack engineer with 4.5+ years building scalable Node.js microservices and React interfaces for restaurant tech, fintech, aviation and e-commerce.',
+    'Senior Backend Engineer with 4.5+ years building Node.js and TypeScript microservices for high-volume ordering, payments and real-time systems across restaurant tech, fintech, aviation and e-commerce.',
 }
 
 export const profile = {
   name: 'Sanchit Jain',
   firstName: 'Sanchit',
-  role: 'Full-Stack Engineer',
-  subRole: 'Backend-heavy · Node.js · React · Distributed Systems',
+  role: 'Senior Backend Engineer',
+  subRole: 'Node.js · TypeScript · Microservices · Full-Stack (React)',
   location: 'Noida, India',
   email: 'sanchitj439@gmail.com',
   phone: '+91 9634810733',
@@ -21,11 +21,12 @@ export const profile = {
   social: {
     github: 'https://github.com/sanchitjain0',
     linkedin: 'https://www.linkedin.com/in/sanchitjain01',
+    portfolio: 'https://sanchit-portfolio-chi.vercel.app',
   },
   availability: 'Open to senior backend and full-stack roles',
   heroHeadline: 'I build the systems behind millions of food orders.',
   heroSubtext:
-    "Full-stack engineer with 4.5+ years shipping Node.js microservices, real-time APIs and React interfaces for brands like KFC, Pizza Hut and Hardee's across 10+ countries.",
+    "Senior backend engineer with 4.5+ years shipping Node.js and TypeScript microservices for ordering, payments and real-time systems. Today I work on the 21+ service platform behind KFC, Pizza Hut, Hardee's and Krispy Kreme across MENA and Central Asia.",
   ctaPrimary: { label: 'View my work', href: '#projects' },
   ctaSecondary: { label: 'Download resume', href: '/Sanchit_Jain_Resume.pdf' },
 }
@@ -38,10 +39,10 @@ export const stats = [
 ]
 
 export const about = [
-  "I'm a full-stack engineer who started on the backend and still lives closest to it. For the last four and a half years I've built ordering, payment and delivery systems for quick-service restaurant brands across the Middle East, Central Asia and the U.S.",
-  'Most of my work sits where scale meets reliability: microservices that talk over gRPC and Kafka, data layers on MongoDB, Aerospike and Redis, and the monitoring that tells you something is wrong before customers do.',
-  'On the frontend, I build with React and TypeScript, and I like owning a feature end to end, from the database schema to the screen the user taps.',
-  'Today I informally lead a team of 7 senior developers at Americana Restaurants, review code, and interview engineers for senior Node.js roles.',
+  "I'm a backend engineer who also builds React frontends when a feature needs one owner end to end. For four and a half years I've worked on ordering, payment and real-time systems across restaurant tech, fintech, aviation and e-commerce.",
+  'Most of my work sits where scale meets reliability: microservices talking over gRPC, Kafka and RabbitMQ on Kubernetes with a Linkerd service mesh, data layers on MongoDB, Aerospike and Redis, and the monitoring that tells you something is wrong before customers do.',
+  'I care about API security and code health: rate limiting, validation and gateway rules that block 50K+ abusive requests a day, secrets in Azure Key Vault, and a SonarQube clean-up that removed a net 46K lines across the platform.',
+  'At Americana Restaurants I informally lead 7 senior developers through code reviews and design discussions, and I have interviewed 20+ candidates for senior Node.js roles.',
 ]
 
 export interface SkillGroup {
@@ -49,28 +50,32 @@ export interface SkillGroup {
   items: string[]
 }
 
-// Ordered by how a full-stack recruiter scans. Remove anything you can't discuss in an interview.
+// Same groups and order as the resume.
 export const skills: SkillGroup[] = [
-  {
-    group: 'Frontend',
-    // VERIFY: keep only what you've actually used. Add Next.js once you've built something with it.
-    items: ['React', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Redux / Context API', 'REST & GraphQL clients'],
-  },
+  { group: 'Languages', items: ['JavaScript (ES6+)', 'TypeScript', 'Python', 'Go'] },
   {
     group: 'Backend',
-    items: ['Node.js', 'NestJS', 'Express.js', 'Koa', 'REST APIs', 'GraphQL', 'gRPC / Protobuf', 'WebSockets (Socket.IO)', 'Go', 'Python'],
+    items: ['Node.js', 'NestJS', 'Express.js', 'Koa', 'REST APIs', 'GraphQL', 'gRPC / Protobuf', 'WebSockets (Socket.IO)'],
   },
   {
     group: 'Architecture',
-    items: ['Microservices', 'Event-Driven Architecture', 'System Design', 'Low-Level Design', 'Multi-tenancy', 'Idempotency & Retries'],
+    items: ['Microservices', 'Event-Driven Architecture', 'System Design (HLD/LLD)', 'Multi-tenancy', 'Idempotency', 'API Gateway'],
   },
-  { group: 'Data', items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Aerospike', 'Redis', 'Elasticsearch'] },
+  { group: 'Databases & Caching', items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Aerospike', 'Redis', 'Elasticsearch'] },
   { group: 'Messaging', items: ['Kafka', 'RabbitMQ'] },
   {
     group: 'Cloud & DevOps',
     items: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'Linkerd', 'Jenkins', 'Bitbucket Pipelines', 'GitHub Actions'],
   },
-  { group: 'Quality & Observability', items: ['Jest', 'SonarQube', 'New Relic', 'Kibana', 'Azure Key Vault'] },
+  { group: 'Observability & Quality', items: ['New Relic', 'Kibana', 'Jest', 'SonarQube', 'Azure Key Vault'] },
+  {
+    group: 'Payments & Domain',
+    items: ['Payment Gateways (Epay, Kaspi)', 'POS Integration', 'Multi-currency', 'Localization', 'Kiosk Ordering'],
+  },
+  {
+    group: 'Frontend',
+    items: ['React 19', 'Redux / Context API', 'Tailwind CSS', 'HTML5', 'CSS3', 'Three.js / React Three Fiber', 'Vite'],
+  },
 ]
 
 export interface Job {
@@ -85,35 +90,40 @@ export interface Job {
 
 export const experience: Job[] = [
   {
-    company: 'Americana Restaurants',
+    company: 'Americana Restaurants (India) Pvt. Ltd.',
     role: 'Senior Backend Developer',
     period: 'Jan 2026 – Present',
     location: 'India',
     summary:
-      "Building on a 21+ microservice ordering platform behind KFC, Pizza Hut, Hardee's and Krispy Kreme across MENA and Central Asia.",
+      "Building features across the 21+ microservice ordering platform behind KFC, Pizza Hut, Hardee's and Krispy Kreme in MENA and Central Asia.",
     highlights: [
-      'Rebuilt the Aerospike connection layer for every service with retry, reconnection and self-healing.',
-      'Blocked 50K+ abusive requests per day with rate limiting, validation and gateway rules.',
-      'Cut production incidents ~40% and response time from 30 to under 10 minutes with centralized monitoring.',
-      'Delivered the Kazakhstan launch: Epay and Kaspi payments, RU/KK localization, currency precision.',
-      'Designing a multi-tenant NestJS SaaS for onboarding new restaurant brands.',
-      'Lead 7 senior developers informally and interviewed 20+ candidates.',
+      'Platform: features across 21+ microservices (Koa, gRPC, Kafka, RabbitMQ) on Kubernetes with a Linkerd service mesh, streaming order events to delivery and POS.',
+      'Resilience: rebuilt the Aerospike connection layer for every service with retry, background reconnection and self-healing, plus New Relic connection-health events.',
+      'API security: blocked 50K+ abusive requests/day with rate limiting, Joi validation and gateway rules; moved secrets to Azure Key Vault and fixed JWT audience validation.',
+      'Observability: ~40% fewer production incidents and incident response from 30 to under 10 minutes with centralized logging, monitoring and alerting.',
+      'Market launch: delivered Kazakhstan with Epay and Kaspi payments, RU/KK localization and multi-currency precision for POS totals.',
+      'New product: designing a multi-tenant NestJS SaaS with tenant-aware configuration and RBAC so new brands onboard faster and cheaper.',
+      'Code quality: led a platform-wide SonarQube clean-up of vulnerabilities and duplicate code, a net 46K lines removed.',
+      'Leadership: informally lead 7 senior developers; interviewed 20+ candidates for senior Node.js roles.',
     ],
-    stack: ['Node.js', 'TypeScript', 'Koa', 'NestJS', 'gRPC', 'Kafka', 'Aerospike', 'Kubernetes', 'Azure'],
+    stack: ['Node.js', 'TypeScript', 'Koa', 'NestJS', 'gRPC', 'Kafka', 'RabbitMQ', 'Aerospike', 'Kubernetes', 'Linkerd', 'Azure'],
   },
   {
     company: 'Appinventiv',
     role: 'Backend Developer',
     period: 'Feb 2022 – Jan 2026',
     location: 'Noida, India',
-    summary: 'Built backend systems for restaurant, fintech, aviation and e-commerce clients at a global product-engineering company.',
+    summary: 'Backend systems for restaurant, fintech, aviation and e-commerce clients at a global product-engineering company.',
     highlights: [
-      'Built order, cart, payment and delivery services handling 200K+ orders per day for Americana.',
-      'Cut critical API latency from ~2.5s to ~300ms with parallel async, indexing and Redis caching.',
-      'Built backends for a stock-investing app, an airline crew platform and an e-commerce inventory system.',
-      'Supported backend APIs for KFC U.S. self-service kiosk ordering.',
+      "Ordering platform: order, cart, payment and delivery services handling 200K+ orders/day for Americana's brands, with delivery-ETA, delivery-charge and order-status flows.",
+      'Kiosk ordering: self-service kiosk system rolled out in 10+ countries and linked to $10M+ revenue growth, including KFC U.S. (Yum! Brands) kiosk APIs for menu sync and POS orders.',
+      'Performance: critical API latency from ~2.5s to ~300ms with parallel async processing, MongoDB compound indexes and Redis caching; idempotent order writes ended duplicate-entry failures.',
+      'Cost: ~20% annual infrastructure savings by right-sizing VMs and improving caching and data-access patterns.',
+      'TagHawk: campus and apartment resale backend with Elasticsearch search, transactional inventory, anonymous Socket.IO chat and escrow payments.',
+      'Snowball: onboarding and KYC flows, portfolio and holdings APIs on PostgreSQL, live prices over WebSockets.',
+      'Crew Connex: Express.js and GraphQL APIs for crew rosters, duty times, hotel check-ins and cab schedules, with real-time alerts through AWS SNS.',
     ],
-    stack: ['Node.js', 'Express.js', 'MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'GraphQL', 'AWS'],
+    stack: ['Node.js', 'Express.js', 'MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'Elasticsearch', 'GraphQL', 'Socket.IO', 'AWS'],
   },
 ]
 
@@ -141,9 +151,9 @@ export const projects: Project[] = [
     problem:
       'Four restaurant brands across many countries needed one platform for online, kiosk and delivery orders, each with its own menus, currencies, payments and POS systems.',
     solution:
-      'Worked across 21+ Node.js microservices communicating over gRPC, Kafka and RabbitMQ on Kubernetes. Built order, cart, payment and delivery flows, delivery-ETA integration and currency-aware totals for POS systems.',
+      'Worked across 21+ Node.js microservices talking over gRPC, Kafka and RabbitMQ on Kubernetes with a Linkerd mesh. Built order, cart, payment and delivery services with delivery-ETA, delivery-charge and order-status flows, idempotent order writes and currency-aware totals for POS systems.',
     impact: ['200K+ orders/day at platform level', 'Kiosk ordering live in 10+ countries', 'Linked to $10M+ in revenue'],
-    stack: ['Node.js', 'TypeScript', 'Koa', 'gRPC', 'Kafka', 'RabbitMQ', 'MongoDB', 'Kubernetes'],
+    stack: ['Node.js', 'TypeScript', 'Koa', 'gRPC', 'Kafka', 'RabbitMQ', 'MongoDB', 'Kubernetes', 'Linkerd'],
     links: {}, // Client work: no public links. Add an architecture diagram image instead.
   },
   {
@@ -167,10 +177,9 @@ export const projects: Project[] = [
     category: 'Full-Stack · In progress',
     featured: true,
     problem: 'Onboarding a new restaurant brand onto the ordering ecosystem was slow and expensive.',
-    // VERIFY: add the React admin dashboard here if you build one; it is your strongest full-stack proof.
-    solution: 'Designing from scratch a multi-tenant NestJS backend with tenant-aware configuration and role-based access.',
-    impact: ['Lower onboarding cost for new brands'], // VERIFY: add numbers when available
-    stack: ['NestJS', 'TypeScript', 'React'], // VERIFY React
+    solution: 'Designing from scratch a multi-tenant NestJS backend with tenant-aware configuration and role-based access (RBAC).',
+    impact: ['Faster, cheaper onboarding for new brands'], // add numbers once it ships
+    stack: ['NestJS', 'TypeScript', 'MongoDB'],
     links: {},
   },
   {
@@ -180,9 +189,9 @@ export const projects: Project[] = [
     category: 'Fintech',
     featured: false,
     problem: 'Retail investors needed a simple way to onboard, invest and track a portfolio.',
-    solution: 'Built the investment backend: onboarding and KYC flows, portfolio and holdings APIs, and live price updates pushed over Socket.IO.', // VERIFY features
+    solution: 'Built the investment backend: onboarding and KYC flows, portfolio and holdings APIs on PostgreSQL, and live price updates over WebSockets.',
     impact: ['Real-time portfolio updates'],
-    stack: ['Node.js', 'TypeScript', 'PostgreSQL', 'Socket.IO'], // VERIFY stack
+    stack: ['Node.js', 'PostgreSQL', 'WebSockets'],
     links: {},
   },
   {
@@ -195,7 +204,7 @@ export const projects: Project[] = [
     solution:
       'Developed APIs for crew rosters, duty times, hotel check-ins and cab schedules, with real-time alerts so crew always had the latest update.',
     impact: ["One app for a crew member's full trip schedule"],
-    stack: ['Node.js', 'Express.js', 'GraphQL', 'MongoDB', 'AWS SNS'], // VERIFY stack
+    stack: ['Node.js', 'Express.js', 'GraphQL', 'AWS SNS'],
     links: {},
   },
   {
@@ -206,12 +215,36 @@ export const projects: Project[] = [
     featured: true,
     problem:
       'Students and apartment residents needed a trusted way to buy and sell used items inside their own community, without meeting strangers or handling cash, and without listings overselling stock.',
-    // VERIFY: adjust to exactly what you built on TagHawk
     solution:
-      'Built the marketplace backend: community-scoped listings and search, inventory and order management with transactional stock updates, anonymous buyer–seller chat over Socket.IO, and escrow-style cashless payments.',
-    impact: ['No overselling under concurrent checkout', 'Real-time anonymous chat', 'Cashless escrow payments'], // VERIFY
-    stack: ['Node.js', 'TypeScript', 'MongoDB', 'MySQL', 'Elasticsearch', 'Socket.IO', 'React'], // VERIFY stack
+      'Built the campus and apartment resale backend: Elasticsearch listing search, transactional inventory that prevents overselling, anonymous buyer–seller chat over Socket.IO, and escrow payments.',
+    impact: ['No overselling under concurrent checkout', 'Real-time anonymous chat', 'Cashless escrow payments'],
+    stack: ['Node.js', 'Elasticsearch', 'Socket.IO', 'Escrow payments'],
     links: {},
+  },
+  {
+    slug: 'sonarqube-cleanup',
+    title: 'Platform-wide Code Clean-up',
+    tagline: 'Paying down security and duplication debt across 21+ services',
+    category: 'Code Quality',
+    featured: false,
+    problem: 'SonarQube was reporting vulnerabilities and large amounts of duplicated code across the ordering platform.',
+    solution: 'Led a clean-up across services: fixed flagged vulnerabilities, pulled duplicated logic into shared modules and deleted dead code.',
+    impact: ['Net 46K lines of code removed'],
+    stack: ['SonarQube', 'Node.js', 'TypeScript'],
+    links: {},
+  },
+  {
+    slug: 'portfolio-platform',
+    title: 'This Portfolio + Admin API',
+    tagline: '3D portfolio with its own backend and dashboard',
+    category: 'Full-Stack · Open source',
+    featured: false,
+    problem: 'I wanted a portfolio that shows full-stack work instead of describing it.',
+    solution:
+      'React 19 + Three.js frontend on Vercel, and a Fastify + MongoDB API on Render that stores messages, chat questions, guestbook notes and analytics, with a React admin dashboard and GitHub Actions CI.',
+    impact: ['Rate-limited, validated public API', 'Admin dashboard with live site settings'],
+    stack: ['React', 'Three.js', 'Fastify', 'MongoDB', 'Vercel', 'Render'],
+    links: { live: 'https://sanchit-portfolio-chi.vercel.app', repo: 'https://github.com/sanchitjain0/sanchit-portfolio' },
   },
 ]
 
@@ -275,21 +308,13 @@ export const markets = [
 
 /* ── AI in my workflow ────────────────────────────────────────────────────── */
 
-/**
- * Logos come from src/data/aiIcons.ts (slug = key there).
- * VERIFY: keep only the tools you actually use and describe them in your own words.
- */
+/** Logos come from src/data/aiIcons.ts (slug = key there). Same list as the resume. */
 export const aiTools = [
-  { slug: 'claude', name: 'Claude API', ring: 0, use: 'Claude integrated into Node.js backends: summarisation, structured extraction and assistants behind an API.' },
-  { slug: 'anthropic', name: 'Claude Code', ring: 0, use: 'Agentic coding in the terminal: refactors, test generation and code review.' },
-  { slug: 'openai', name: 'Codex', ring: 0, use: 'Code generation and quick prototypes.' },
-  { slug: 'googlegemini', name: 'Gemini', ring: 0, use: 'Research, long-document reading and second opinions on designs.' },
-  { slug: 'githubcopilot', name: 'GitHub Copilot', ring: 1, use: 'Inline completions while writing services and tests.' },
-  { slug: 'langchain', name: 'LangChain', ring: 1, use: 'Prototyping retrieval and tool-calling pipelines.' },
-  { slug: 'ollama', name: 'Ollama', ring: 1, use: 'Running open models locally for private experiments.' },
-  { slug: 'huggingface', name: 'Hugging Face', ring: 1, use: 'Exploring open models and datasets.' },
-  { slug: 'perplexity', name: 'Perplexity', ring: 1, use: 'Fast, cited research on libraries and incidents.' },
-  { slug: 'n8n', name: 'n8n', ring: 1, use: 'Automating small workflows and notifications.' },
+  { slug: 'claude', name: 'Claude API', ring: 0, use: 'Claude integrated into Node.js backends behind an API.' },
+  { slug: 'anthropic', name: 'Claude Code', ring: 0, use: 'Agentic coding in the terminal: refactors, tests and code review.' },
+  { slug: 'githubcopilot', name: 'GitHub Copilot', ring: 0, use: 'Inline completions while writing services and tests.' },
+  { slug: 'openai', name: 'OpenAI Codex', ring: 1, use: 'Code generation and quick prototypes.' },
+  { slug: 'googlegemini', name: 'Gemini', ring: 1, use: 'Research, long documents and a second opinion on designs.' },
 ] as const
 
 export const aiSuggestedQuestions = [
