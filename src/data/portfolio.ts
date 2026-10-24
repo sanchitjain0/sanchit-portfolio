@@ -19,7 +19,7 @@ export const profile = {
   phone: '+91 9634810733',
   resumeUrl: '/Sanchit_Jain_Resume.pdf',
   social: {
-    github: 'https://github.com/', // VERIFY: add your username
+    github: 'https://github.com/sanchitjain0',
     linkedin: 'https://www.linkedin.com/in/sanchitjain01',
   },
   availability: 'Open to senior backend and full-stack roles',
