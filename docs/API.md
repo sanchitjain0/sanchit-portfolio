@@ -1,5 +1,7 @@
 # Portfolio API contract
 
+Implemented in the companion repo **portfolio-api** (Fastify + MongoDB, deployed on Render). The `/ai/ask` endpoint answers from a knowledge base managed in its admin dashboard; the Claude snippet at the bottom is an optional future upgrade.
+
 The frontend calls these endpoints on `VITE_API_BASE_URL` (default placeholder `https://api.example.com/v1`).
 While the URL is the placeholder, or a request fails or times out, the UI falls back to built-in mock data and shows a small **mock** badge. Any 4xx response is shown to the user as a real error.
 
@@ -12,6 +14,10 @@ CORS must allow the site origin (e.g. `https://your-domain.vercel.app`) for `GET
 | `POST` | `/contact` | Contact form | `{ "name": "Jane", "email": "jane@co.com", "message": "Hi…" }` | `201 { "id": "msg_123", "receivedAt": "2026-10-23T10:00:00Z" }` |
 | `POST` | `/demo/orders` | Architecture → "Send a test order" | `{ "source": "kiosk", "city": "Almaty" }` | `201 { "orderId": "ord_123", "status": "PAID", "trace": [{ "service": "gateway", "message": "rate limit ok", "ms": 3 }] }` |
 | `POST` | `/ai/ask` | AI section → "Ask my portfolio" | `{ "question": "What is his stack?", "history": [{ "role": "user", "content": "…" }] }` | `{ "answer": "…", "model": "claude-opus-5-5" }` |
+| `GET` | `/public/config` | Hero availability, "now →" line, top banner | – | `{ "available": true, "availabilityText": "…", "currentlyWorkingOn": "…", "banner": { "text": "…", "link": null } \| null, "guestbookEnabled": true }` |
+| `GET` / `POST` | `/guestbook` | Guestbook section | `{ "name": "Ana", "message": "Nice site!" }` | `{ "items": [{ "id", "name", "message", "createdAt" }] }` / `201 { "status": "pending" }` |
+| `GET` / `POST` | `/reactions` | ❤ buttons on projects | `{ "project": "taghawk" }` (toggle) | `{ "counts": { "taghawk": 3 }, "mine": ["taghawk"] }` / `{ "project", "liked", "count" }` |
+| `POST` | `/events` | Anonymous analytics | `{ "type": "page_view" \| "section_view" \| "resume_download" \| "theme_toggle" \| "room_click" \| "outbound_click", "label"?, "path"?, "referrer"?, "device"? }` | `202` |
 | `GET` | `/taghawk/listings?community=…&limit=4` | TagHawk showcase phone | – | `{ "items": [{ "id": "l1", "title": "IKEA desk", "price": 45, "currency": "USD", "community": "Boston University" }] }` |
 
 `trace[].service` should be one of the node ids in `src/data/architecture.ts`

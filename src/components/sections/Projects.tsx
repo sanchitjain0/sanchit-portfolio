@@ -1,5 +1,6 @@
 import { projects, type Project } from '../../data/portfolio'
 import { Tilt } from '../ui/Tilt'
+import { ReactionButton } from '../ui/ReactionButton'
 
 function Links({ p }: { p: Project }) {
   const entries = Object.entries(p.links).filter(([, v]) => v) as [string, string][]
@@ -32,6 +33,9 @@ function Featured({ p, index }: { p: Project; index: number }) {
             </li>
           ))}
         </ul>
+        <div className="mt-5 flex flex-wrap items-center gap-4">
+          <ReactionButton project={p.slug} title={p.title} />
+        </div>
         <Links p={p} />
       </div>
       <div className="space-y-4">
@@ -77,7 +81,10 @@ export function Projects() {
             <h4 className="mt-2 font-display text-lg font-semibold text-fg">{p.title}</h4>
             <p className="mt-1 text-sm text-fg-2">{p.tagline}</p>
             <p className="mt-3 text-sm text-fg-2">{p.solution}</p>
-            <p className="mt-3 text-sm font-medium text-fg">▲ {p.impact[0]}</p>
+            <div className="mt-3 flex items-start justify-between gap-2">
+              <p className="text-sm font-medium text-fg">▲ {p.impact[0]}</p>
+              <ReactionButton project={p.slug} title={p.title} />
+            </div>
             <ul className="mt-auto flex flex-wrap gap-1.5 pt-4" aria-label="Tech stack">
               {p.stack.map((t) => (
                 <li key={t} className="chip">

@@ -44,15 +44,19 @@ async function request<T>(method: 'GET' | 'POST', path: string, body?: unknown, 
   }
 }
 
-/** Try the real API; on network failure / placeholder URL use the mock. Validation (4xx) errors are re-thrown. */
-async function withMock<T>(call: () => Promise<T>, mock: () => T | Promise<T>): Promise<ApiResult<T>> {
+/**
+ * Try the real API; on network failure / placeholder URL use the mock. Validation (4xx) errors are re-thrown.
+ * `fallback: false` is for writes that must never be silently dropped (contact form): once a real backend
+ * is configured, a failure surfaces as an error instead of a fake success.
+ */
+async function withMock<T>(call: () => Promise<T>, mock: () => T | Promise<T>, { fallback = true } = {}): Promise<ApiResult<T>> {
   const t0 = performance.now()
   if (!API_IS_PLACEHOLDER) {
     try {
       const data = await call()
       return { data, source: 'api', ms: Math.round(performance.now() - t0) }
     } catch (err) {
-      if (err instanceof ApiError && err.status >= 400 && err.status < 500) throw err
+      if (!fallback || (err instanceof ApiError && err.status >= 400 && err.status < 500)) throw err
       console.warn('[api] falling back to mock:', err)
     }
   }
@@ -69,6 +73,15 @@ export interface HealthResponse {
   version: string
   uptimeSec: number
 }
+/**
+ * The free Render instance sleeps after 15 idle minutes and needs ~30-60 s to boot.
+ * Pinging /health as soon as the page opens wakes it up while the visitor reads the hero.
+ */
+export function warmUpApi() {
+  if (API_IS_PLACEHOLDER) return
+  fetch(`${API_BASE_URL}/health`, { method: 'GET', cache: 'no-store' }).catch(() => {})
+}
+
 export const getHealth = () =>
   withMock<HealthResponse>(
     () => request('GET', '/health', undefined, 2500),
@@ -86,11 +99,12 @@ export interface ContactResponse {
 }
 export const sendContact = (body: ContactRequest) =>
   withMock<ContactResponse>(
-    () => request('POST', '/contact', body),
+    () => request('POST', '/contact', body, 60000), // allow for a cold start
     async () => {
       await wait(500)
       return { id: `mock_${Date.now().toString(36)}`, receivedAt: new Date().toISOString() }
     },
+    { fallback: false },
   )
 
 export interface TraceStep {
@@ -152,3 +166,98 @@ export const askPortfolio = (body: AskRequest, localAnswer: (q: string) => strin
       return { answer: localAnswer(body.question), model: 'local-mock' }
     },
   )
+
+/* ── site config (edited from the admin dashboard) ───────────────────────────── */
+
+export interface PublicConfig {
+  available: boolean
+  availabilityText: string
+  currentlyWorkingOn: string
+  banner: { text: string; link: string | null } | null
+  guestbookEnabled: boolean
+}
+export const getPublicConfig = (fallback: PublicConfig) =>
+  withMock<PublicConfig>(() => request('GET', '/public/config', undefined, 8000), () => fallback)
+
+/* ── guestbook ─────────────────────────────────────────────────────────────── */
+
+export interface GuestbookNote {
+  id: string
+  name: string
+  message: string
+  createdAt: string
+}
+export const getGuestbook = () =>
+  withMock<{ items: GuestbookNote[] }>(
+    () => request('GET', '/guestbook', undefined, 8000),
+    () => ({ items: [] }),
+  )
+export const postGuestbook = (body: { name: string; message: string; website?: string }) =>
+  withMock<{ status: 'pending'; message: string }>(
+    () => request('POST', '/guestbook', body, 60000),
+    async () => {
+      await wait(400)
+      return { status: 'pending', message: 'Thanks! Your note will appear once it’s approved.' }
+    },
+    { fallback: false },
+  )
+
+/* ── project reactions ─────────────────────────────────────────────────────── */
+
+export interface ReactionsResponse {
+  counts: Record<string, number>
+  mine: string[]
+}
+const LOCAL_LIKES = 'sanchit.likes'
+const localLikes = (): string[] => {
+  try {
+    return JSON.parse(localStorage.getItem(LOCAL_LIKES) ?? '[]')
+  } catch {
+    return []
+  }
+}
+export const getReactions = () =>
+  withMock<ReactionsResponse>(
+    () => request('GET', '/reactions', undefined, 8000),
+    () => {
+      const mine = localLikes()
+      return { counts: Object.fromEntries(mine.map((m) => [m, 1])), mine }
+    },
+  )
+export const toggleReaction = (project: string) =>
+  withMock<{ project: string; liked: boolean; count: number }>(
+    () => request('POST', '/reactions', { project }, 20000),
+    () => {
+      const mine = localLikes()
+      const liked = !mine.includes(project)
+      const next = liked ? [...mine, project] : mine.filter((m) => m !== project)
+      try {
+        localStorage.setItem(LOCAL_LIKES, JSON.stringify(next))
+      } catch {
+        /* private mode */
+      }
+      return { project, liked, count: liked ? 1 : 0 }
+    },
+  )
+
+/* ── anonymous analytics (no cookies, no personal data; honours Do Not Track) ── */
+
+export type TrackEvent = 'page_view' | 'section_view' | 'resume_download' | 'theme_toggle' | 'room_click' | 'outbound_click' | 'project_reaction'
+const dnt = typeof navigator !== 'undefined' && (navigator.doNotTrack === '1' || (window as unknown as { doNotTrack?: string }).doNotTrack === '1')
+
+export function track(type: TrackEvent, label?: string) {
+  if (API_IS_PLACEHOLDER || dnt) return
+  const body: Record<string, string> = { type, path: location.pathname.slice(0, 120) }
+  if (label) body.label = label.slice(0, 80)
+  if (type === 'page_view') {
+    body.device = matchMedia('(max-width: 767px)').matches ? 'mobile' : 'desktop'
+    try {
+      const ref = document.referrer ? new URL(document.referrer).hostname : ''
+      if (ref && ref !== location.hostname) body.referrer = ref.slice(0, 120)
+    } catch {
+      /* ignore */
+    }
+  }
+  // keepalive lets the request finish even if the visitor navigates away
+  fetch(`${API_BASE_URL}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), keepalive: true }).catch(() => {})
+}

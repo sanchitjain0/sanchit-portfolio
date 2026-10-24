@@ -6,6 +6,7 @@ import { useInView, usePageVisible } from '../../hooks/useInView'
 import { useReducedMotion } from '../../hooks/useMediaQuery'
 import { hasWebGL } from '../../hooks/useWebGL'
 import { SceneBoundary } from '../ui/SceneBoundary'
+import { ReactionButton } from '../ui/ReactionButton'
 import type { FeatureId, Listing } from '../three/PhoneShowcase'
 
 const PhoneShowcase = lazy(() => import('../three/PhoneShowcase'))
@@ -82,7 +83,10 @@ export function TagHawk() {
               </p>
             )}
           </div>
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Tech stack">
+          <div className="mt-5">
+            <ReactionButton project="taghawk" title="TagHawk" />
+          </div>
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tech stack">
             {project.stack.map((t) => (
               <li key={t} className="chip">
                 {t}

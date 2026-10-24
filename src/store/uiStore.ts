@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { track } from '../lib/api'
 
 export type Theme = 'dark' | 'light'
 const THEME_KEY = 'sanchit.theme'
@@ -28,6 +29,7 @@ export const useUIStore = create<UIStore>((set, get) => ({
       /* private mode */
     }
     set({ theme })
+    track('theme_toggle', theme)
   },
   terminalOpen: false,
   setTerminalOpen: (terminalOpen) => set({ terminalOpen }),

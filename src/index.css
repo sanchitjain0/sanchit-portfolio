@@ -177,3 +177,9 @@ html.capture,
 html.capture body {
   background: transparent !important;
 }
+
+@keyframes pop {
+  50% {
+    transform: scale(1.4);
+  }
+}

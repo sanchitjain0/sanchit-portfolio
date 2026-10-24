@@ -1,6 +1,8 @@
 import { about, education, profile } from '../../data/portfolio'
+import { useSiteStore } from '../../store/siteStore'
 
 export function About() {
+  const config = useSiteStore((s) => s.config)
   return (
     <section id="about" className="section" aria-labelledby="about-title">
       <p className="kicker">About</p>
@@ -31,7 +33,7 @@ export function About() {
           </div>
           <div>
             <p className="text-sm text-muted">Looking for</p>
-            <p className="font-medium text-fg">{profile.availability}</p>
+            <p className="font-medium text-fg">{config.availabilityText}</p>
           </div>
         </aside>
       </div>

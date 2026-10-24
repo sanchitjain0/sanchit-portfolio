@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { profile } from '../../data/portfolio'
 import { ThemeToggle } from './ThemeToggle'
+import { Banner } from './Banner'
 
 const NAV = [
   { id: 'experience', label: 'Experience' },
@@ -27,6 +28,7 @@ export function Navbar() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-on-accent">
         Skip to content
       </a>
+      <Banner />
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6" aria-label="Primary">
         <a href="#top" className="font-display text-lg font-bold tracking-tight text-fg">
           {profile.firstName}

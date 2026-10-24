@@ -37,6 +37,8 @@ Defined once as CSS variables in `src/index.css` (`[data-theme='dark']` / `[data
 
 ## Backend API
 
+The backend lives in the companion repo **portfolio-api** (Fastify + MongoDB on Render, with an admin dashboard). It stores contact messages, chat questions, guestbook notes, ❤ reactions and anonymous analytics, and lets you change the availability badge, "currently working on" line and top banner without redeploying.
+
 All network calls live in `src/lib/api.ts`; the contract is in **[docs/API.md](docs/API.md)**:
 `GET /health`, `POST /contact`, `POST /demo/orders`, `POST /ai/ask`, `GET /taghawk/listings`.
 

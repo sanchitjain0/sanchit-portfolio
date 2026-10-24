@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { profile, stats } from '../data/portfolio'
 import { useUIStore } from '../store/uiStore'
+import { useSiteStore } from '../store/siteStore'
+import { track } from '../lib/api'
 import { useFinePointer, useIsMobile, useReducedMotion } from '../hooks/useMediaQuery'
 import { useInView, usePageVisible } from '../hooks/useInView'
 import { hasWebGL } from '../hooks/useWebGL'
@@ -34,6 +36,7 @@ function RoomImage({ theme }: { theme: string }) {
 
 export function Hero() {
   const theme = useUIStore((s) => s.theme)
+  const config = useSiteStore((s) => s.config)
   const toggleTheme = useUIStore((s) => s.toggleTheme)
   const stage = useRef<HTMLDivElement>(null)
   const inView = useInView(stage)
@@ -50,6 +53,7 @@ export function Hero() {
   }, [])
 
   const navigate = (id: HotspotId) => {
+    track('room_click', id)
     document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' })
   }
 
@@ -59,10 +63,10 @@ export function Hero() {
         <div className="relative z-10">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-fg-2">
             <span className="relative flex h-2 w-2" aria-hidden>
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              {config.available && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />}
+              <span className={`relative inline-flex h-2 w-2 rounded-full ${config.available ? 'bg-emerald-500' : 'bg-slate-400'}`} />
             </span>
-            {profile.availability}
+            {config.availabilityText}
           </p>
           <p className="font-mono text-sm text-accent">
             {profile.name} · {profile.role}
@@ -72,6 +76,12 @@ export function Hero() {
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-fg-2 sm:text-lg">{profile.heroSubtext}</p>
           <p className="mt-3 text-sm text-muted">{profile.subRole}</p>
+          {config.currentlyWorkingOn && (
+            <p className="mt-2 text-sm text-fg-2">
+              <span className="font-mono text-xs text-accent">now → </span>
+              {config.currentlyWorkingOn}
+            </p>
+          )}
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={profile.ctaPrimary.href} className="btn-primary">
               {profile.ctaPrimary.label} →

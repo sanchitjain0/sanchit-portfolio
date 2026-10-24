@@ -22,6 +22,7 @@ export function Contact() {
   const [serverError, setServerError] = useState('')
   const [trap, setTrap] = useState('')
   const [copied, setCopied] = useState(false)
+  const [slow, setSlow] = useState(false)
 
   const update = (k: keyof Fields) => (e: { target: { value: string } }) => {
     setFields((f) => ({ ...f, [k]: e.target.value }))
@@ -38,6 +39,8 @@ export function Contact() {
       return
     }
     setStatus('sending')
+    // free hosting sleeps when idle – tell the visitor if the first request is slow
+    const slowTimer = setTimeout(() => setSlow(true), 3500)
     setServerError('')
     try {
       const res = await sendContact(fields)
@@ -48,6 +51,9 @@ export function Contact() {
       console.error(err)
       setServerError(err instanceof ApiError ? err.message : '')
       setStatus('error')
+    } finally {
+      clearTimeout(slowTimer)
+      setSlow(false)
     }
   }
 
@@ -154,6 +160,7 @@ export function Contact() {
           <button type="submit" className="btn-primary w-full disabled:opacity-60" disabled={status === 'sending'}>
             {status === 'sending' ? 'Sending…' : 'Send message'}
           </button>
+          {slow && <p className="text-xs text-muted">Waking up the server (free hosting naps when idle). This can take up to a minute…</p>}
           <p role="status" aria-live="polite" className="min-h-[1.25rem] text-sm">
             {status === 'sent' && result && (
               <span className="text-emerald-500">
